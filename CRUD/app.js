@@ -15,12 +15,30 @@ function renderTasks() {
   taskList.innerHTML = '';
   tasks.forEach((task, index) => {
     const li = document.createElement('li');
-    li.innerHTML = `
-      <h3>${task.title}</h3>
-      <p>${task.description}</p>
-      <a href="#" onclick="deleteTask(${index});">Delete</a>
-      <button onclick="editTask(${index});">Edit</button>
-    `;
+    const taskTitle = document.createElement('h3');
+    const taskDescription = document.createElement('p');
+    const deleteLink = document.createElement('a');
+    const editButton = document.createElement('button');
+    
+    taskTitle.textContent = task.title;
+    taskDescription.textContent = task.description;
+    deleteLink.href = '#';
+    deleteLink.textContent = 'Delete';
+    editButton.textContent = 'Edit';
+    
+    deleteLink.addEventListener('click', () => {
+      deleteTask(index);
+    });
+    
+    editButton.addEventListener('click', () => {
+      editTask(index);
+    });
+    
+    li.appendChild(taskTitle);
+    li.appendChild(taskDescription);
+    li.appendChild(deleteLink);
+    li.appendChild(editButton);
+    
     taskList.appendChild(li);
   });
 }
