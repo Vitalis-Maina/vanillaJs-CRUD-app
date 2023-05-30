@@ -10,6 +10,7 @@ const editForm = document.getElementById('editForm');
 const editTitleInput = document.getElementById('editTitleInput');
 const editDescriptionInput = document.getElementById('editDescriptionInput');
 const cancelEditButton = document.getElementById('cancelEditButton');
+let currentEditIndex = null;
 
 function renderTasks() {
   taskList.innerHTML = '';
@@ -19,28 +20,63 @@ function renderTasks() {
     const taskDescription = document.createElement('p');
     const deleteLink = document.createElement('a');
     const editButton = document.createElement('button');
-    
+
     taskTitle.textContent = task.title;
     taskDescription.textContent = task.description;
     deleteLink.href = '#';
     deleteLink.textContent = 'Delete';
     editButton.textContent = 'Edit';
-    
+
     deleteLink.addEventListener('click', () => {
       deleteTask(index);
     });
-    
+
     editButton.addEventListener('click', () => {
       editTask(index);
     });
-    
+
     li.appendChild(taskTitle);
     li.appendChild(taskDescription);
     li.appendChild(deleteLink);
     li.appendChild(editButton);
-    
+
     taskList.appendChild(li);
   });
+}
+
+function addTask(title, description) {
+  const task = { title, description };
+  tasks.push(task);
+  renderTasks();
+}
+
+function editTask(index) {
+  const task = tasks[index];
+  editTitleInput.value = task.title;
+  editDescriptionInput.value = task.description;
+  currentEditIndex = index;
+  editForm.style.display = 'block';
+}
+
+function saveEdit() {
+  const newTitle = editTitleInput.value;
+  const newDescription = editDescriptionInput.value;
+  tasks[currentEditIndex].title = newTitle;
+  tasks[currentEditIndex].description = newDescription;
+  renderTasks();
+  cancelEdit();
+}
+
+function cancelEdit() {
+  editForm.style.display = 'none';
+  editTitleInput.value = '';
+  editDescriptionInput.value = '';
+  currentEditIndex = null;
+}
+
+function deleteTask(index) {
+  tasks.splice(index, 1);
+  renderTasks();
 }
 
 // Controller
@@ -48,41 +84,18 @@ taskForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const title = titleInput.value;
   const description = descriptionInput.value;
-  const task = { title, description };
-  tasks.push(task);
-  renderTasks();
+  addTask(title, description);
   titleInput.value = '';
   descriptionInput.value = '';
 });
 
-function editTask(index) {
-  const task = tasks[index];
-  editTitleInput.value = task.title;
-  editDescriptionInput.value = task.description;
-  editForm.style.display = 'block';
+editForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  saveEdit();
+});
 
-  editForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const newTitle = editTitleInput.value;
-    const newDescription = editDescriptionInput.value;
-    tasks[index].title = newTitle;
-    tasks[index].description = newDescription;
-    renderTasks();
-    editForm.style.display = 'none';
-    editTitleInput.value = '';
-    editDescriptionInput.value = '';
-  });
-
-  cancelEditButton.addEventListener('click', () => {
-    editForm.style.display = 'none';
-    editTitleInput.value = '';
-    editDescriptionInput.value = '';
-  });
-}
-
-function deleteTask(index) {
-  tasks.splice(index, 1);
-  renderTasks();
-}
+cancelEditButton.addEventListener('click', () => {
+  cancelEdit();
+});
 
 renderTasks();
