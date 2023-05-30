@@ -50,15 +50,8 @@ To run the VanillaJS CRUD App locally, follow these steps:
 
 Contributions to the VanillaJS CRUD App are welcome! If you find any issues or have suggestions for improvements, please feel free to submit an issue or a pull request.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
 - This application was created as a demonstration of CRUD functionality using vanilla JavaScript.
 - The design and implementation of the application are credited to Vitalis Maina.
-
----
-
-That's an updated README file based on the provided Git repository. You can further modify it to include any additional information or sections specific to your project.
