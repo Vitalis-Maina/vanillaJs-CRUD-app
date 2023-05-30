@@ -4,7 +4,7 @@ Thank you for providing the Git clone command. Below is an updated version of th
 
 VanillaJS CRUD App is a simple web application built with vanilla JavaScript that demonstrates CRUD (Create, Read, Update, Delete) functionality. It allows users to manage tasks by adding, viewing, updating, and deleting them.
 
-![VanillaJS CRUD App Screenshot](screenshot.png)
+![VanillaJS CRUD App Screenshot](screenshot1.png,screenshot2.png,screenshot3.png)
 
 ## Features
 
